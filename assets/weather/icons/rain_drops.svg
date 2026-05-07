@@ -1,0 +1,20 @@
+<svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .drop { fill: #43647E; transform-origin: center; }
+      .d1 { animation: fall 1.4s ease-in infinite; }
+      .d2 { animation: fall 1.4s ease-in infinite 0.45s; }
+      .d3 { animation: fall 1.4s ease-in infinite 0.9s; }
+      @keyframes fall {
+        0%   { opacity: 0; transform: translateY(-18px); }
+        15%  { opacity: 1; }
+        80%  { opacity: 1; }
+        100% { opacity: 0; transform: translateY(18px); }
+      }
+    </style>
+  </defs>
+
+  <path class="drop d1" d="M69.942,143.08c-0.852,6.32-11.666,18.842-11.666,27.824c0,6.443,5.225,11.664,11.666,11.664c6.443,0,11.666-5.221,11.666-11.664C81.608,161.521,70.696,149.551,69.942,143.08z"/>
+  <path class="drop d2" d="M110.126,143.08c-0.854,6.32-11.666,18.842-11.666,27.824c0,6.443,5.223,11.664,11.666,11.664s11.666-5.221,11.666-11.664C121.792,161.521,110.878,149.551,110.126,143.08z"/>
+  <path class="drop d3" d="M150.308,143.08c-0.854,6.32-11.664,18.842-11.664,27.824c0,6.443,5.223,11.664,11.664,11.664c6.445,0,11.666-5.221,11.666-11.664C161.974,161.521,151.062,149.551,150.308,143.08z"/>
+</svg>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="odds.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <title>F1 NOW</title>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">F1 NOW</div>
+    <div class="nav-links">
+      <a href="index.html">Last Race</a>
+      <a href="history.html">History</a>
+      <a href="odds.html">Live Odds</a>
+    </div>
+  </nav>
+
+  <div class="odds-hero">
+    <div class="odds-card">
+
+      <div class="odds-header-text">
+        <div class="market-row">
+          <img src="assets/images/Odds/chart.png" alt="Chart icon">
+          <h3>Live Markets</h3>
+        </div>
+
+        <h1>CHAMPIONSHIP ODDS</h1>
+
+        <div class="source-toggle">
+          <button class="source-btn active" id="kalshiBtn">
+            <img src="https://play-lh.googleusercontent.com/5_nqrDLjGT0QhL4oHiJvsOqo2oQ0ecQmIDxh2CtsUbcVFRSEZSCqWB-Do29kTgKBE64" alt="Kalshi logo">
+            <span>Kalshi</span>
+          </button>
+
+          <button class="source-btn" id="polymarketBtn">
+            <img src="https://polymarket.com/images/brand/icon-blue.png" alt="Polymarket logo">
+            <span>Polymarket</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="odds-panels">
+
+        <div class="odds-panel">
+          <div class="panel-header">
+            <div class="panel-title-row">
+              <div class="panel-icon">◉</div>
+              <div>
+                <h2>DRIVERS' CHAMPIONSHIP</h2>
+                <p>2026 Season Odds</p>
+              </div>
+            </div>
+
+            <a class="live-odds-label" href="https://kalshi.com/markets/kxf1/formula-1/kxf1-26" target="_blank" rel="noopener noreferrer">
+              <span>↗</span>
+              <p>LIVE ODDS</p>
+            </a>
+          </div>
+
+          <div class="odds-list" id="driversOddsList"></div>
+
+          <div class="panel-footer">
+            <span>◷ Odds update in real time</span>
+            <span id="driversSourceLabel">Kalshi markets aggregated ⓘ</span>
+          </div>
+        </div>
+
+        <div class="odds-panel">
+          <div class="panel-header">
+            <div class="panel-title-row">
+              <div class="panel-icon">⬟</div>
+              <div>
+                <h2>CONSTRUCTORS' CHAMPIONSHIP</h2>
+                <p>2026 Season Odds</p>
+              </div>
+            </div>
+
+            <a class="live-odds-label" href="https://kalshi.com/markets/kxf1constructors/formula-1-constructors/kxf1constructors-26" target="_blank" rel="noopener noreferrer">
+              <span>↗</span>
+              <p>LIVE ODDS</p>
+            </a>
+          </div>
+
+          <div class="odds-list" id="constructorsOddsList"></div>
+
+          <div class="panel-footer">
+            <span>◷ Odds update in real time</span>
+            <span id="constructorsSourceLabel">Kalshi markets aggregated ⓘ</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script src="odds.js"></script>
+</body>
+</html>
