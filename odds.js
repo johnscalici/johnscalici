@@ -1,5 +1,4 @@
 const KALSHI_BASE = "https://external-api.kalshi.com/trade-api/v2";
-const CORS_PROXY = "https://proxy.corsfix.com/?url=";
 
 const KALSHI_DRIVERS_PAGE = "https://kalshi.com/markets/kxf1/formula-1/kxf1-26";
 const KALSHI_CONSTRUCTORS_PAGE = "https://kalshi.com/markets/kxf1constructors/formula-1-constructors/kxf1constructors-26";
@@ -272,8 +271,13 @@ function setSourceLabels(sourceName) {
 }
 
 function setActiveSource(source) {
-  kalshiBtn.classList.toggle("active", source === "kalshi");
-  polymarketBtn.classList.toggle("active", source === "polymarket");
+  if (kalshiBtn) {
+    kalshiBtn.classList.toggle("active", source === "kalshi");
+  }
+
+  if (polymarketBtn) {
+    polymarketBtn.classList.toggle("active", source === "polymarket");
+  }
 }
 
 function updateLiveOddsLinks(source) {
@@ -336,6 +340,16 @@ function showErrorRows(sourceName) {
   if (constructorsList) constructorsList.innerHTML = errorRow;
 }
 
+async function fetchJson(url) {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Fetch failed: ${response.status}`);
+  }
+
+  return response.json();
+}
+
 async function updateOdds() {
   const driversUrl = `${KALSHI_BASE}/markets?series_ticker=KXF1&status=open&limit=1000`;
   const constructorsUrl = `${KALSHI_BASE}/markets?series_ticker=KXF1CONSTRUCTORS&status=open&limit=1000`;
@@ -346,18 +360,16 @@ async function updateOdds() {
   showLoadingRows();
 
   try {
-    const driversResponse = await fetch(CORS_PROXY + encodeURIComponent(driversUrl));
-    const constructorsResponse = await fetch(CORS_PROXY + encodeURIComponent(constructorsUrl));
-
-    const driversData = await driversResponse.json();
-    const constructorsData = await constructorsResponse.json();
+    const driversData = await fetchJson(driversUrl);
+    const constructorsData = await fetchJson(constructorsUrl);
 
     const cleanDrivers = cleanKalshiDrivers(driversData.markets || []);
     const cleanConstructors = cleanKalshiConstructors(constructorsData.markets || []);
 
     renderDriverOdds(cleanDrivers);
     renderConstructorOdds(cleanConstructors);
-  } catch {
+  } catch (error) {
+    console.error("Kalshi fetch failed:", error);
     showErrorRows("Kalshi");
   }
 }
@@ -369,23 +381,26 @@ async function updatePolymarketOdds() {
   showLoadingRows();
 
   try {
-    const driversResponse = await fetch(CORS_PROXY + encodeURIComponent(POLY_DRIVERS_URL));
-    const constructorsResponse = await fetch(CORS_PROXY + encodeURIComponent(POLY_CONSTRUCTORS_URL));
-
-    const driversData = await driversResponse.json();
-    const constructorsData = await constructorsResponse.json();
+    const driversData = await fetchJson(POLY_DRIVERS_URL);
+    const constructorsData = await fetchJson(POLY_CONSTRUCTORS_URL);
 
     const cleanDrivers = cleanPolyDrivers(driversData.markets || []);
     const cleanConstructors = cleanPolyConstructors(constructorsData.markets || []);
 
     renderDriverOdds(cleanDrivers);
     renderConstructorOdds(cleanConstructors);
-  } catch {
+  } catch (error) {
+    console.error("Polymarket fetch failed:", error);
     showErrorRows("Polymarket");
   }
 }
 
-kalshiBtn.addEventListener("click", updateOdds);
-polymarketBtn.addEventListener("click", updatePolymarketOdds);
+if (kalshiBtn) {
+  kalshiBtn.addEventListener("click", updateOdds);
+}
+
+if (polymarketBtn) {
+  polymarketBtn.addEventListener("click", updatePolymarketOdds);
+}
 
 updateOdds();
